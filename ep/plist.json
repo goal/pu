@@ -1,0 +1,26 @@
+{
+    "git":
+    [
+        "https://github.com/goal/tagshow",
+		"https://github.com/goal/yas-snip",
+        "https://github.com/d11wtq/grizzl",
+        "https://github.com/d11wtq/fiplr",
+        "https://github.com/emacsmirror/evil",
+        "https://github.com/timcharper/evil-surround",
+        "https://github.com/benma/visual-regexp.el",
+        "https://github.com/benma/visual-regexp-steroids.el",
+        "https://github.com/capitaomorte/yasnippet",
+        "http://github.com/auto-complete/auto-complete",
+		"https://github.com/n3mo/cyberpunk-theme.el",
+		"https://github.com/sellout/emacs-color-theme-solarized",
+        "https://github.com/magnars/dash.el",
+        "https://github.com/dgutov/diff-hl",
+        "http://github.com/nonsequitur/smex",
+        "https://github.com/emacsmirror/window-number",
+        "https://github.com/m2ym/popwin-el",
+        "https://github.com/lewang/flx"
+    ],
+    "hg":
+    [
+    ]
+}
