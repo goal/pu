@@ -1,20 +1,18 @@
-; (add-to-list 'load-path (get-plugin-real-path "xcscope"))
-; (require 'xcscope)
-
-; (setq cscope-initial-directory "~/S/q1/logic")
+(require 'cl)
 
 (defun get-plugin-real-path (plugin)
   ""
-  (let ((-work "E:/S/Dropbox/1/ep/") (-home "D:/S/Dropbox/1/ep/"))
-    (if (file-exists-p -work)
-      (concat -work plugin)
-      (concat -home plugin))))
+  (let ((dirs '("E:/S/Dropbox/1/ep/"
+                "D:/S/Dropbox/1/ep/"
+                "~/R/pu/ep/")))
+    (concat (car (remove-if-not 'file-exists-p dirs)) plugin)))
 
 (setq backup-directory-alist
   `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
   `((".*" ,temporary-file-directory t)))
 
+(setq default-major-mode 'lisp-mode)
 (setq inhibit-startup-message t)
 
 ;; set default coding
@@ -30,8 +28,9 @@
 (setq frame-title-format "%b @Emacs")
 
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(if (functionp 'tool-bar-mode)
+  ((tool-bar-mode -1)
+   (scroll-bar-mode -1)))
 
 (column-number-mode t)
 (show-paren-mode t)
@@ -117,9 +116,9 @@
     ("*git-gutter:diff*" :height 30 :stick t)))
 
 ;; auto-complete config
-(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/ert"))
-(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/fuzzy"))
-(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/popup"))
+;; (add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/ert"))
+(add-to-list 'load-path (get-plugin-real-path "fuzzy-el"))
+(add-to-list 'load-path (get-plugin-real-path "popup-el"))
 (add-to-list 'load-path (get-plugin-real-path "auto-complete"))
 (require 'auto-complete)
 (require 'auto-complete-config)
@@ -153,9 +152,18 @@
   
 (define-key ac-completing-map "\t" 'ac-complete)
 
-(add-to-list 'load-path (get-plugin-real-path "diff-hl"))
-(require 'diff-hl)
-(global-diff-hl-mode t)
+(add-to-list 'load-path (get-plugin-real-path "emacs-git-gutter"))
+(require 'git-gutter)
+(global-git-gutter-mode t)
+(setq git-gutter:window-width 2)
+(setq git-gutter:lighter " G-+")
+(setq git-gutter:modified-sign "~ ")
+(setq git-gutter:added-sign "+ ")
+(setq git-gutter:deleted-sign "- ")
+(setq git-gutter:unchanged-sign "  ")
+;; (set-face-background 'git-gutter:modified "purple") ;; background color
+;; (set-face-foreground 'git-gutter:added "green")
+;; (set-face-foreground 'git-gutter:deleted "red")
 
 (add-to-list 'load-path (get-plugin-real-path "smex"))
 (require 'smex) ; Not needed if you use package.el
@@ -170,9 +178,25 @@
 (require 'window-number)
 (window-number-meta-mode 1)
 
-;; (add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
+(add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
 (add-to-list 'custom-theme-load-path (get-plugin-real-path "emacs-color-theme-solarized"))
 
-(load-theme 'solarized-dark t)
+(if (window-system)
+  (load-theme 'solarized-dark t)
+  (load-theme 'cyberpunk t))
+
+;;;;;;;;;;;;;;;;;;;;; old configure options
+
+; (add-to-list 'load-path (get-plugin-real-path "xcscope"))
+; (require 'xcscope)
+
+; (setq cscope-initial-directory "~/S/q1/logic")
+
+
+;; (add-to-list 'load-path (get-plugin-real-path "diff-hl"))
+;; (require 'diff-hl)
+;; (global-diff-hl-mode)
+
+;;;;;;;;;;;;;;;;;;;;
 
 ;; END
