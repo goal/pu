@@ -1,0 +1,178 @@
+; (add-to-list 'load-path (get-plugin-real-path "xcscope"))
+; (require 'xcscope)
+
+; (setq cscope-initial-directory "~/S/q1/logic")
+
+(defun get-plugin-real-path (plugin)
+  ""
+  (let ((-work "E:/S/Dropbox/1/ep/") (-home "D:/S/Dropbox/1/ep/"))
+    (if (file-exists-p -work)
+      (concat -work plugin)
+      (concat -home plugin))))
+
+(setq backup-directory-alist
+  `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+  `((".*" ,temporary-file-directory t)))
+
+(setq inhibit-startup-message t)
+
+;; set default coding
+(setq default-buffer-file-coding-system 'gbk)
+;; file name coding
+(setq file-name-coding-system 'gbk)
+;; highest priority coding
+(prefer-coding-system 'utf-8)
+
+(setq default-frame-alist
+  '((top . 20) (left . 200) (height . 25) (width . 100) (menu-bar-lines . 20) (tool-bar-lines . 0) (font . "Yahei Mono 14")))
+  
+(setq frame-title-format "%b @Emacs")
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(column-number-mode t)
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+
+(add-to-list 'load-path (get-plugin-real-path "evil"))
+(require 'evil)
+(evil-mode 1)
+
+(add-to-list 'load-path (get-plugin-real-path "flx"))
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
+
+(add-to-list 'load-path (get-plugin-real-path "grizzl"))
+(add-to-list 'load-path (get-plugin-real-path "fiplr"))
+(require 'fiplr)
+(fiplr-mode 1)
+(setq fiplr-root-markers '(".git" ".svn"))
+(setq fiplr-ignored-globs '((directories (".git" ".svn"))
+                            (files ("*.jpg" "*.png" "*.zip" "*~"))))
+(global-set-key (kbd "C-x f") 'fiplr-find-file)
+
+(setq c-basic-offset 4)
+(setq default-tab-width 4)
+
+(require 'ansi-color)
+(ansi-color-for-comint-mode-on)
+
+(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
+(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
+(require 'visual-regexp-steroids)
+(define-key global-map (kbd "C-c r") 'vr/replace)
+(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;; to use visual-regexp's isearch instead of the built-in regexp isearch, also include the following lines:
+(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
+(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
+
+(add-to-list 'load-path (get-plugin-real-path "evil-surround"))
+(require 'surround)
+(global-surround-mode 1)
+
+(add-to-list 'load-path (get-plugin-real-path "dash.el"))
+(add-to-list 'load-path (get-plugin-real-path "tagshow"))
+(require 'tagshow)
+(tagshow-mode 1)
+;; (evil-define-key 'normal tagshow-mode-map "C-s" 'show-tags)
+(define-key global-map (kbd "C-s") 'show-tags)
+
+(add-to-list 'load-path (get-plugin-real-path "popwin-el"))
+(require 'popwin)
+(popwin-mode 1)
+(setq display-buffer-function 'popwin:display-buffer)
+
+(setq popwin:special-display-config
+  '(("*Help*"  :height 30)
+    ("*Completions*" :noselect t)
+    ("*Messages*" :noselect t :height 30)
+    ("*Apropos*" :noselect t :height 30)
+    ("*compilation*" :noselect t)
+    ("*Backtrace*" :height 30)
+    ("*Messages*" :height 30)
+    ("*Occur*" :noselect t)
+    ("*Ido Completions*" :noselect t :height 30)
+    ("*magit-commit*" :noselect t :height 40 :width 80 :stick t)
+    ("*magit-diff*" :noselect t :height 40 :width 80)
+    ("*magit-edit-log*" :noselect t :height 15 :width 80)
+    ("\\*ansi-term\\*.*" :regexp t :height 30)
+    ("*shell*" :height 30)
+    (".*overtone.log" :regexp t :height 30)
+    ("*gists*" :height 30)
+    ("*sldb.*":regexp t :height 30)
+    ("*nrepl-error*" :height 30 :stick t)
+    ("*nrepl-doc*" :height 30 :stick t)
+    ("*nrepl-src*" :height 30 :stick t)
+    ("*nrepl-result*" :height 30 :stick t)
+    ("*nrepl-macroexpansion*" :height 30 :stick t)
+    ("*Kill Ring*" :height 30)
+    ("*Compile-Log*" :height 30 :stick t)
+    ("*git-gutter:diff*" :height 30 :stick t)))
+
+;; auto-complete config
+(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/ert"))
+(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/fuzzy"))
+(add-to-list 'load-path (get-plugin-real-path "auto-complete/lib/popup"))
+(add-to-list 'load-path (get-plugin-real-path "auto-complete"))
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
+
+(add-to-list 'ac-dictionary-directories (get-plugin-real-path "auto-complete/dict"))
+
+(global-auto-complete-mode t)
+(setq ac-auto-show-menu t)
+(setq ac-dwim t)
+(setq ac-use-menu-map t)
+(setq ac-quick-help-delay 1)
+(setq ac-quick-help-height 60)
+(setq ac-disable-inline t)
+(setq ac-show-menu-immediately-on-auto-complete t)
+(setq ac-auto-start 2)
+(setq ac-candidate-menu-min 0)
+
+(set-default 'ac-sources
+             '(ac-source-dictionary
+               ac-source-words-in-buffer
+               ac-source-words-in-same-mode-buffers
+               ac-source-semantic
+               ac-source-yasnippet))
+
+(dolist (mode '(magit-log-edit-mode log-edit-mode org-mode text-mode haml-mode
+                sass-mode yaml-mode csv-mode espresso-mode haskell-mode
+                html-mode nxml-mode sh-mode smarty-mode clojure-mode
+                lisp-mode textile-mode markdown-mode tuareg-mode))
+  (add-to-list 'ac-modes mode))
+  
+(define-key ac-completing-map "\t" 'ac-complete)
+
+(add-to-list 'load-path (get-plugin-real-path "diff-hl"))
+(require 'diff-hl)
+(global-diff-hl-mode t)
+
+(add-to-list 'load-path (get-plugin-real-path "smex"))
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize) ; Can be omitted. This might cause a (minimal) delay
+                  ; when Smex is auto-initialized on its first run.
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(add-to-list 'load-path (get-plugin-real-path "window-number"))
+(require 'window-number)
+(window-number-meta-mode 1)
+
+;; (add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
+(add-to-list 'custom-theme-load-path (get-plugin-real-path "emacs-color-theme-solarized"))
+
+(load-theme 'solarized-dark t)
+
+;; END
