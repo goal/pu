@@ -1,4 +1,8 @@
 *
-!ep/plist.json
+!ep
+!vp
+!.emacs.lite
+!*.json
 !gu.py
 !.gitignore
+!.vimrc

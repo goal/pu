@@ -4,7 +4,8 @@
   ""
   (let ((dirs '("E:/S/Dropbox/1/ep/"
                 "D:/S/Dropbox/1/ep/"
-                "~/R/pu/ep/")))
+                "~/R/pu/ep/"
+                "~/S/pu/ep/")))
     (concat (car (remove-if-not 'file-exists-p dirs)) plugin)))
 
 (setq backup-directory-alist
@@ -27,8 +28,15 @@
   
 (setq frame-title-format "%b @Emacs")
 
+(add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
+(add-to-list 'custom-theme-load-path (get-plugin-real-path "emacs-color-theme-solarized"))
+
+(if (window-system)
+  (load-theme 'solarized-dark t)
+  (load-theme 'cyberpunk t))
+
 (menu-bar-mode -1)
-(if (functionp 'tool-bar-mode)
+(if (window-system)
   ((tool-bar-mode -1)
    (scroll-bar-mode -1)))
 
@@ -161,9 +169,13 @@
 (setq git-gutter:added-sign "+ ")
 (setq git-gutter:deleted-sign "- ")
 (setq git-gutter:unchanged-sign "  ")
-;; (set-face-background 'git-gutter:modified "purple") ;; background color
-;; (set-face-foreground 'git-gutter:added "green")
-;; (set-face-foreground 'git-gutter:deleted "red")
+(set-face-foreground 'git-gutter:modified "#4c83ff")
+(set-face-foreground 'git-gutter:deleted "gray10")
+(set-face-foreground 'git-gutter:added "#61CE3C")
+(set-face-background 'git-gutter:modified "gray5")
+(set-face-background 'git-gutter:deleted "gray5")
+(set-face-background 'git-gutter:added "gray5")
+(set-face-background 'git-gutter:unchanged "gray5")
 
 (add-to-list 'load-path (get-plugin-real-path "smex"))
 (require 'smex) ; Not needed if you use package.el
@@ -177,13 +189,6 @@
 (add-to-list 'load-path (get-plugin-real-path "window-number"))
 (require 'window-number)
 (window-number-meta-mode 1)
-
-(add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
-(add-to-list 'custom-theme-load-path (get-plugin-real-path "emacs-color-theme-solarized"))
-
-(if (window-system)
-  (load-theme 'solarized-dark t)
-  (load-theme 'cyberpunk t))
 
 ;;;;;;;;;;;;;;;;;;;;; old configure options
 
