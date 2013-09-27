@@ -3,7 +3,6 @@ syntax on
 
 set nofen  "nofoldenable
 set nu  "number"
-set autochdir
 set foldmethod=indent
 set fileencodings=utf-8 "",ucs-bom,gb18030,ucs-2
 set encoding=utf-8
@@ -20,6 +19,10 @@ set backspace=indent,eol,start
 set laststatus=2
 set clipboard+=unnamed
 set hlsearch
+
+if exists("+autochdir")
+    set autochdir
+endif
 
 let g:lpc_syntax_for_c=1
 source ~/S/vimp/vim-pathogen/autoload/pathogen.vim
@@ -44,7 +47,6 @@ autocmd BufRead *.c nmap <F5> :set ft=c <CR>
 autocmd BufNewFile,BufRead *.snip,*.snippet setf snippet
 "autocmd InsertCharPre * let v:char=toupper(v:char)
 "autocmd VimEnter,VimLeave * silent !tmux set status > /dev/null 2> /dev/null
-autocmd VimEnter * silent QuickfixsignsDisable
 
 ""nmap <Tab> :ls<CR>:confirm:b!
 nnoremap <Tab> <ESC>:call SwitchBuf()<CR>
