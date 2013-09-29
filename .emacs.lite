@@ -96,6 +96,14 @@
 (popwin-mode 1)
 (setq display-buffer-function 'popwin:display-buffer)
 
+(add-to-list 'load-path (get-plugin-real-path "yasnippet"))
+(require 'yasnippet)
+(setq yas-snippet-dirs
+       (list (get-plugin-real-path "yas-snip")
+        (get-plugin-real-path "yasnippet/snippets")
+        ))
+(yas-global-mode 1)
+
 (setq popwin:special-display-config
   '(("*Help*"  :height 30)
     ("*Completions*" :noselect t)
