@@ -44,6 +44,13 @@
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
 
+(add-to-list 'load-path (get-plugin-real-path "dash.el"))
+(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
+;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
+(require 'clojure-mode)
+;; (require 'nrepl)
+;; (setq nrepl-port "4555")
+
 (add-to-list 'load-path (get-plugin-real-path "evil"))
 (require 'evil)
 (evil-mode 1)
@@ -84,7 +91,6 @@
 (require 'surround)
 (global-surround-mode 1)
 
-(add-to-list 'load-path (get-plugin-real-path "dash.el"))
 (add-to-list 'load-path (get-plugin-real-path "tagshow"))
 (require 'tagshow)
 (tagshow-mode 1)
