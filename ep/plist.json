@@ -20,6 +20,8 @@
         "http://github.com/nonsequitur/smex",
         "https://github.com/emacsmirror/window-number",
         "https://github.com/m2ym/popwin-el",
+        "https://github.com/clojure-emacs/clojure-mode",
+        "https://github.com/clojure-emacs/nrepl.el",
         "https://github.com/lewang/flx"
     ],
     "hg":
