@@ -1,7 +1,6 @@
 (require 'cl)
 
-(defun get-plugin-real-path (plugin)
-  ""
+(defun get-plugin-real-path (plugin) ""
   (let ((dirs '("E:/S/Dropbox/1/ep/"
                 "D:/S/Dropbox/1/ep/"
                 "~/R/pu/ep/"
@@ -44,12 +43,22 @@
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
 
+(add-hook 'c-mode-common-hook
+		  (lambda ()
+			(font-lock-add-keywords nil
+									'(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
 (add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
 ;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
 (require 'clojure-mode)
 ;; (require 'nrepl)
 ;; (setq nrepl-port "4555")
+
+(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 (add-to-list 'load-path (get-plugin-real-path "evil"))
 (require 'evil)
@@ -190,6 +199,8 @@
 (set-face-background 'git-gutter:deleted "gray5")
 (set-face-background 'git-gutter:added "gray5")
 (set-face-background 'git-gutter:unchanged "gray5")
+
+(set-face-background font-lock-warning-face "gray5")
 
 (add-to-list 'load-path (get-plugin-real-path "smex"))
 (require 'smex) ; Not needed if you use package.el
