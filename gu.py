@@ -56,8 +56,17 @@ def sort_repo(repos, _dir='.'):
             up_repos.append(i)
         else:
             clone_repos.append(i)
-    print(up_repos)
-    print(clone_repos)
+    
+    print("--------\n clone_repos:")
+    for i in clone_repos:
+        print(i)
+
+    print("--------\n up_repos:")
+    for i in up_repos:
+        print(i)
+
+    print("--------\n")
+
     return clone_repos + up_repos
 
 if len(sys.argv) < 1:
