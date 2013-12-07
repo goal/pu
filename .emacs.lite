@@ -48,7 +48,10 @@
 			(font-lock-add-keywords nil
 									'(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
+(add-to-list 'load-path (get-plugin-real-path "s.el"))
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
+(require 's)
+
 (add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
 ;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
 (require 'clojure-mode)
@@ -218,6 +221,27 @@
 (add-to-list 'load-path (get-plugin-real-path "window-number"))
 (require 'window-number)
 (window-number-meta-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;; some funcs
+
+(defun inparen (s)
+  (let ((lp (string-match "(" s))
+		(rp (string-match ")" s)))
+	(substring s (+ 1 lp) rp)))
+
+(defun rdebug ()
+  (interactive)
+  (let* ((line-content (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+		 (line-content (s-replace "..." "" line-content))
+		 (c (inparen line-content))
+		 (l (split-string c ","))
+		 (vs (-map (lambda (x) (nth 1 (split-string x))) l))
+		 (rps (s-join ", " (-map (lambda (x) (format "%s=%%O" x)) vs)))
+		 (vss (s-join ", " vs))
+		 (result (format "debug_message(\"%s\", %s);" rps vss))
+		 (-d (delete-region (line-beginning-position) (line-end-position)))
+		 (-g (goto-char (line-beginning-position))))
+	(insert result)))
 
 ;;;;;;;;;;;;;;;;;;;;; old configure options
 
