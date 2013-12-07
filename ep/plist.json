@@ -22,9 +22,10 @@
         "https://github.com/m2ym/popwin-el",
         "https://github.com/clojure-emacs/clojure-mode",
         "https://github.com/clojure-emacs/nrepl.el",
-		"https://github.com/immerrr/lua-mode",
+        "https://github.com/immerrr/lua-mode",
         "https://github.com/goal/sr-speedbar",
-        "https://github.com/lewang/flx"
+        "https://github.com/lewang/flx",
+        "https://github.com/magnars/s.el"
     ],
     "hg":
     [
