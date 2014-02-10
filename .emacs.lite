@@ -229,6 +229,15 @@
 		(rp (string-match ")" s)))
 	(substring s (+ 1 lp) rp)))
 
+(defun rdebug-values (vs)
+  (let* ((rps (s-join ", " (-map (lambda (x) (format "%s=%%O" x)) vs)))
+		 (vss (s-join ", " vs))
+		 (result (format "debug_message(\"%s\", %s);" rps vss))
+		 (-d (delete-region (line-beginning-position) (line-end-position)))
+		 (-g (goto-char (line-beginning-position))))
+	(insert result)))
+
+;; void test_fun(int a, mixed * b, mixed *c...)
 (defun rdebug ()
   (interactive)
   (let* ((line-content (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
@@ -236,13 +245,16 @@
 		 (line-content (s-replace "*" "" line-content))    ;; (int * a)
 		 (c (inparen line-content))
 		 (l (split-string c ","))
-		 (vs (-map (lambda (x) (nth 1 (split-string x))) l))
-		 (rps (s-join ", " (-map (lambda (x) (format "%s=%%O" x)) vs)))
-		 (vss (s-join ", " vs))
-		 (result (format "debug_message(\"%s\", %s);" rps vss))
-		 (-d (delete-region (line-beginning-position) (line-end-position)))
-		 (-g (goto-char (line-beginning-position))))
-	(insert result)))
+		 (vs (-map (lambda (x) (nth 1 (split-string x))) l)))
+	(rdebug-values vs)))
+
+;; b c d
+(defun rdvalues ()
+  (interactive)
+  (let* ((line-content (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+		 (vs (split-string line-content)))
+	(rdebug-values vs)))
+
 
 ;;;;;;;;;;;;;;;;;;;;; old configure options
 
