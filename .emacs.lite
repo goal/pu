@@ -267,11 +267,6 @@
 
 ; (setq cscope-initial-directory "~/S/q1/logic")
 
-
-;; (add-to-list 'load-path (get-plugin-real-path "diff-hl"))
-;; (require 'diff-hl)
-;; (global-diff-hl-mode)
-
 ;;;;;;;;;;;;;;;;;;;;
 
 ;; END
