@@ -63,6 +63,7 @@
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
+(setq evil-symbol-word-search t)
 (add-to-list 'load-path (get-plugin-real-path "evil"))
 (require 'evil)
 (evil-mode 1)
