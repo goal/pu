@@ -223,9 +223,9 @@
 (require 'window-number)
 (window-number-meta-mode 1)
 
-(add-to-list 'load-path (get-plugin-real-path "haskell-mode"))
-(require 'haskell-mode-autoloads)
-(add-to-list 'Info-default-directory-list (get-plugin-real-path "haskell-mode/"))
+;(add-to-list 'load-path (get-plugin-real-path "haskell-mode"))
+;(require 'haskell-mode-autoloads)
+;(add-to-list 'Info-default-directory-list (get-plugin-real-path "haskell-mode/"))
 
 ;;;;;;;;;;;;;;;;;;;;; some funcs
 
