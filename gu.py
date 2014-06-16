@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import subprocess
+import concurrent.futures
 
 
 GIT_PATH = ["git", "C:/Program Files/Git/bin/git.exe"]
@@ -69,41 +70,56 @@ def sort_repo(repos, _dir='.'):
 
     return clone_repos + up_repos
 
-if len(sys.argv) < 1:
-    print("use: gu.py subdir\n")
-    sys.exit(1)
 
-target = sys.argv[1] or "vp"
-dirs = os.listdir(FILE_DIR)
-if not target in dirs:
-    print("wrong arg %s" % target)
-    sys.exit(1)
+def handle_single_target(target_link, back_dir, repo_type=GIT):
+    # GIT or HG
+    up_fun = git_up if repo_type == GIT else hg_up
+    clone_fun = git_clone if repo_type == GIT else hg_clone
 
-target_dir = os.path.join(FILE_DIR, target)
-os.chdir(target_dir)
-target_sdirs = os.listdir(".")
-
-with open("plist.json") as f:
-    repo_dict = json.load(f)
-
-for git_repo in sort_repo(repo_dict["git"]):
-    repo_name = os.path.split(git_repo)[1]
+    repo_name = os.path.split(target_link)[1]
+    os.chdir(back_dir)
+    target_sdirs = os.listdir(".")
     if repo_name in target_sdirs:
         os.chdir(repo_name)
         print(repo_name)
-        git_up()
+        up_fun()
         os.chdir("..")
     else:
-        git_clone(git_repo)
-    print("----------------\n")
+        clone_fun(target_link)
+        print("----------------\n")
+    os.chdir(back_dir)
 
-for hg_repo in sort_repo(repo_dict["hg"]):
-    repo_name = os.path.split(hg_repo)[1]
-    if repo_name in target_sdirs:
-        os.chdir(repo_name)
-        print(repo_name)
-        hg_up()
-        os.chdir("..")
-    else:
-        hg_clone(git_repo)
-    print("----------------\n")
+
+def done_cb(future, *args, **kwargs):
+    pass
+    
+
+def main():
+    if len(sys.argv) < 1:
+        print("use: gu.py subdir\n")
+        sys.exit(1)
+
+    target = sys.argv[1] or "vp"
+    dirs = os.listdir(FILE_DIR)
+    if not target in dirs:
+        print("wrong arg %s" % target)
+        sys.exit(1)
+
+    target_dir = os.path.join(FILE_DIR, target)
+    os.chdir(target_dir)
+    target_sdirs = os.listdir(".")
+
+    with open("plist.json") as f:
+        repo_dict = json.load(f)
+    
+    with concurrent.futures.ProcessPoolExecutor(5) as executor:
+        for repo_name in sort_repo(repo_dict["git"]):
+            future = executor.submit(handle_single_target, repo_name, target_dir, GIT)
+            future.add_done_callback(done_cb)
+        for repo_name in sort_repo(repo_dict["hg"]):
+            future = executor.submit(handle_single_target, repo_name, target_dir, HG)
+            future.add_done_callback(done_cb)
+
+
+if __name__ == '__main__':
+    main()
