@@ -5,7 +5,9 @@ import os
 import sys
 import json
 import subprocess
-import concurrent.futures
+
+if sys.version_info.major >= 3:
+    import concurrent.futures
 
 
 GIT_PATH = ["git", "C:/Program Files/Git/bin/git.exe"]
@@ -112,6 +114,13 @@ def main():
     with open("plist.json") as f:
         repo_dict = json.load(f)
     
+    if sys.version_info.major < 3:
+        for repo_name in sort_repo(repo_dict["git"]):
+            handle_single_target(repo_name, target_dir, GIT)
+        for repo_name in sort_repo(repo_dict["hg"]):
+            handle_single_target(repo_name, target_dir, HG)
+        return
+
     with concurrent.futures.ProcessPoolExecutor(5) as executor:
         for repo_name in sort_repo(repo_dict["git"]):
             future = executor.submit(handle_single_target, repo_name, target_dir, GIT)
