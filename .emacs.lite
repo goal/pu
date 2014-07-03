@@ -44,9 +44,9 @@
 (setq show-paren-style 'parentheses)
 
 (add-hook 'c-mode-common-hook
-		  (lambda ()
-			(font-lock-add-keywords nil
-									'(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+  (lambda ()
+    (font-lock-add-keywords nil
+      '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
 (add-to-list 'load-path (get-plugin-real-path "s.el"))
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
@@ -101,12 +101,12 @@
 (define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
 
 (add-to-list 'load-path (get-plugin-real-path "evil-surround"))
-(require 'surround)
-(global-surround-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
-(add-to-list 'load-path (get-plugin-real-path "sr-speedbar"))
-(require 'sr-speedbar)
-(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+;(add-to-list 'load-path (get-plugin-real-path "sr-speedbar"))
+;(require 'sr-speedbar)
+;(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
 
 (add-to-list 'load-path (get-plugin-real-path "tagshow"))
 (require 'tagshow)
