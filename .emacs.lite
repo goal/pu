@@ -104,15 +104,14 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
-;(add-to-list 'load-path (get-plugin-real-path "sr-speedbar"))
-;(require 'sr-speedbar)
-;(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
-
 (add-to-list 'load-path (get-plugin-real-path "tagshow"))
 (require 'tagshow)
+(require 'wscope)
 (tagshow-mode 1)
-;; (evil-define-key 'normal tagshow-mode-map "C-s" 'show-tags)
 (define-key global-map (kbd "C-s") 'show-tags)
+(define-key global-map (kbd "C-x g") 'wscope-find-global-definition)
+(define-key global-map (kbd "C-x s") 'wscope-find-this-symbol)
+(define-key global-map (kbd "C-x t") 'wscope-find-this-text-string)
 
 (add-to-list 'load-path (get-plugin-real-path "popwin-el"))
 (require 'popwin)
@@ -260,6 +259,9 @@
 		 (vs (split-string line-content)))
 	(rdebug-values vs)))
 
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+  (flet ((process-list ())) ad-do-it))
 
 ;;;;;;;;;;;;;;;;;;;;; old configure options
 
