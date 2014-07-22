@@ -6,8 +6,12 @@ import sys
 import json
 import subprocess
 
-if sys.version_info.major >= 3:
+PYTHON3 = False
+try:
     import concurrent.futures
+    PYTHON3 = True
+except:
+    pass
 
 
 GIT_PATH = ["git", "C:/Program Files/Git/bin/git.exe"]
@@ -114,7 +118,7 @@ def main():
     with open("plist.json") as f:
         repo_dict = json.load(f)
     
-    if sys.version_info.major < 3:
+    if not PYTHON3:
         for repo_name in sort_repo(repo_dict["git"]):
             handle_single_target(repo_name, target_dir, GIT)
         for repo_name in sort_repo(repo_dict["hg"]):
