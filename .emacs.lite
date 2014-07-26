@@ -106,9 +106,10 @@
 
 (add-to-list 'load-path (get-plugin-real-path "tagshow"))
 (require 'tagshow)
-(require 'wscope)
 (tagshow-mode 1)
 (define-key global-map (kbd "C-s") 'show-tags)
+
+(add-to-list 'load-path (get-plugin-real-path "wscope"))
 (define-key global-map (kbd "C-x g") 'wscope-find-global-definition)
 (define-key global-map (kbd "C-x s") 'wscope-find-this-symbol)
 (define-key global-map (kbd "C-x t") 'wscope-find-this-text-string)
