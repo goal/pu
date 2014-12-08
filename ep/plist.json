@@ -6,7 +6,6 @@
         "https://github.com/goal/yas-snip",
         "https://github.com/d11wtq/grizzl",
         "https://github.com/d11wtq/fiplr",
-        "https://github.com/emacsmirror/evil",
         "https://github.com/timcharper/evil-surround",
         "https://github.com/benma/visual-regexp.el",
         "https://github.com/benma/visual-regexp-steroids.el",
@@ -30,5 +29,6 @@
     ],
     "hg":
     [
+		"https://bitbucket.org/lyro/evil"
     ]
 }

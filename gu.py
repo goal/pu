@@ -48,7 +48,7 @@ def hg_clone(url):
 
 def hg_up():
     """hg pull and update"""
-    return subprocess.call([HG, "pull"]) and subprocess.call([HG, "update"])
+    return subprocess.call([HG, "pull"]) or subprocess.call([HG, "update"])
     
 def exists(repo, _dir='.'):
     repo_name = os.path.split(repo)[1]
