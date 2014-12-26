@@ -52,16 +52,16 @@
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
 (require 's)
 
-(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
+;(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
 ;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
-(require 'clojure-mode)
+;(require 'clojure-mode)
 ;; (require 'nrepl)
 ;; (setq nrepl-port "4555")
 
-(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+;(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
+;(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 (setq evil-symbol-word-search t)
 (add-to-list 'load-path (get-plugin-real-path "evil"))
@@ -91,14 +91,14 @@
 (require 'ansi-color)
 (ansi-color-for-comint-mode-on)
 
-(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
-(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
-(require 'visual-regexp-steroids)
-(define-key global-map (kbd "C-c r") 'vr/replace)
-(define-key global-map (kbd "C-c q") 'vr/query-replace)
-;; to use visual-regexp's isearch instead of the built-in regexp isearch, also include the following lines:
-(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
-(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
+;(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
+;(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
+;(require 'visual-regexp-steroids)
+;(define-key global-map (kbd "C-c r") 'vr/replace)
+;(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;;; to use visual-regexp's isearch instead of the built-in regexp isearch, also include the following lines:
+;(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
+;(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
 
 (add-to-list 'load-path (get-plugin-real-path "evil-surround"))
 (require 'evil-surround)
@@ -226,11 +226,14 @@
 (require 'window-number)
 (window-number-meta-mode 1)
 
-(add-to-list 'load-path (get-plugin-real-path "haskell-mode"))
-(require 'haskell-mode-autoloads)
-(add-to-list 'Info-default-directory-list (get-plugin-real-path "haskell-mode"))
-;(add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;(add-to-list 'load-path (get-plugin-real-path "ag.el"))
+;(require 'ag)
+
+;(add-to-list 'load-path (get-plugin-real-path "haskell-mode"))
+;(require 'haskell-mode-autoloads)
+;(add-to-list 'Info-default-directory-list (get-plugin-real-path "haskell-mode"))
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
+;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 ;;;;;;;;;;;;;;;;;;;;; some funcs
 
