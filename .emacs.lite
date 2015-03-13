@@ -52,16 +52,13 @@
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
 (require 's)
 
+(global-whitespace-mode t)
+(setq whitespace-style '(face tabs empty tab-mark))
 ;(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
 ;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
 ;(require 'clojure-mode)
 ;; (require 'nrepl)
 ;; (setq nrepl-port "4555")
-
-;(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
-;(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 (setq evil-symbol-word-search t)
 (add-to-list 'load-path (get-plugin-real-path "evil"))
