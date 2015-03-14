@@ -60,6 +60,10 @@
 ;; (require 'nrepl)
 ;; (setq nrepl-port "4555")
 
+(add-to-list 'load-path (get-plugin-real-path "rust-mode"))
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
 (setq evil-symbol-word-search t)
 (add-to-list 'load-path (get-plugin-real-path "evil"))
 (require 'evil)

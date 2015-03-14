@@ -26,10 +26,11 @@
         "https://github.com/lewang/flx",
         "https://github.com/haskell/haskell-mode",
         "https://github.com/magnars/s.el",
-		"https://github.com/Wilfred/ag.el"
+        "https://github.com/Wilfred/ag.el",
+        "https://github.com/rust-lang/rust-mode"
     ],
     "hg":
     [
-		"https://bitbucket.org/lyro/evil"
+        "https://bitbucket.org/lyro/evil"
     ]
 }
