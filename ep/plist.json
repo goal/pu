@@ -27,7 +27,8 @@
         "https://github.com/haskell/haskell-mode",
         "https://github.com/magnars/s.el",
         "https://github.com/Wilfred/ag.el",
-        "https://github.com/rust-lang/rust-mode"
+        "https://github.com/rust-lang/rust-mode",
+        "git://jblevins.org/git/markdown-mode.git"
     ],
     "hg":
     [

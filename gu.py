@@ -83,6 +83,9 @@ def handle_single_target(target_link, back_dir, repo_type=GIT):
     clone_fun = git_clone if repo_type == GIT else hg_clone
 
     repo_name = os.path.split(target_link)[1]
+    if target_link.endswith(".git"):
+        repo_name = repo_name[:-4]
+
     os.chdir(back_dir)
     target_sdirs = os.listdir(".")
     if repo_name in target_sdirs:
