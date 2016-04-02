@@ -28,6 +28,7 @@
         "https://github.com/magnars/s.el",
         "https://github.com/Wilfred/ag.el",
         "https://github.com/rust-lang/rust-mode",
+        "git://github.com/magit/magit.git",
         "git://jblevins.org/git/markdown-mode.git"
     ],
     "hg":

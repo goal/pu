@@ -101,6 +101,14 @@
 (require 'ansi-color)
 (ansi-color-for-comint-mode-on)
 
+(add-to-list 'load-path (get-plugin-real-path "magit/lisp"))
+(require 'magit)
+
+(with-eval-after-load 'info
+  (info-initialize)
+  (add-to-list 'Info-directory-list
+               (get-plugin-real-path "magit/Documentation")))
+
 ;(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
 ;(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
 ;(require 'visual-regexp-steroids)
@@ -125,6 +133,8 @@
 (define-key global-map (kbd "C-x s") 'wscope-find-this-symbol)
 (define-key global-map (kbd "C-x t") 'wscope-find-this-text-string)
 (define-key global-map (kbd "C-x i") 'wscope-find-text-string-from-input)
+(define-key global-map (kbd "C-x j") 'wscope-jump-hostory)
+(setq wscope-data-up-depth 5)
 
 (add-to-list 'load-path (get-plugin-real-path "popwin-el"))
 (require 'popwin)
