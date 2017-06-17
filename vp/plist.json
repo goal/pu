@@ -1,9 +1,7 @@
 {
     "git":
     [
-		"https://github.com/Shougo/neocomplete.vim",
-		"https://github.com/Shougo/neosnippet.vim",
-		"https://github.com/honza/vim-snippets",
+        "https://github.com/Valloric/YouCompleteMe",
 		"https://github.com/scrooloose/nerdtree",
 		"https://github.com/scrooloose/syntastic",
 		"https://github.com/scrooloose/nerdcommenter",
@@ -11,7 +9,6 @@
 		"https://github.com/tpope/vim-pathogen",
 		"https://github.com/tpope/vim-surround",
 		"https://github.com/kien/ctrlp.vim",
-		"https://github.com/jceb/vim-orgmode",
 		"https://github.com/Lokaltog/vim-easymotion"
     ],
     "hg":

@@ -43,34 +43,12 @@
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
 
-(add-hook 'c-mode-common-hook
-  (lambda ()
-    (font-lock-add-keywords nil
-      '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
-
 (add-to-list 'load-path (get-plugin-real-path "s.el"))
 (add-to-list 'load-path (get-plugin-real-path "dash.el"))
 (require 's)
 
 (global-whitespace-mode t)
 (setq whitespace-style '(face tabs empty tab-mark))
-;(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
-;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
-;(require 'clojure-mode)
-;; (require 'nrepl)
-;; (setq nrepl-port "4555")
-
-(add-to-list 'load-path (get-plugin-real-path "rust-mode"))
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-
-(add-to-list 'load-path (get-plugin-real-path "markdown-mode"))
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
 (setq evil-symbol-word-search t)
 (add-to-list 'load-path (get-plugin-real-path "evil"))
 (require 'evil)
@@ -101,23 +79,6 @@
 (require 'ansi-color)
 (ansi-color-for-comint-mode-on)
 
-;; (add-to-list 'load-path (get-plugin-real-path "magit/lisp"))
-;;(require 'magit)
-
-;;(with-eval-after-load 'info
-;;  (info-initialize)
-;;  (add-to-list 'Info-directory-list
-;;               (get-plugin-real-path "magit/Documentation")))
-
-;(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
-;(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
-;(require 'visual-regexp-steroids)
-;(define-key global-map (kbd "C-c r") 'vr/replace)
-;(define-key global-map (kbd "C-c q") 'vr/query-replace)
-;;; to use visual-regexp's isearch instead of the built-in regexp isearch, also include the following lines:
-;(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
-;(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
-
 (add-to-list 'load-path (get-plugin-real-path "evil-surround"))
 (require 'evil-surround)
 (global-evil-surround-mode 1)
@@ -134,7 +95,7 @@
 (define-key global-map (kbd "C-x t") 'wscope-find-this-text-string)
 (define-key global-map (kbd "C-x i") 'wscope-find-text-string-from-input)
 (define-key global-map (kbd "C-x j") 'wscope-jump-hostory)
-(setq wscope-data-up-depth 5)
+(setq wscope-data-up-depth 7)
 
 (add-to-list 'load-path (get-plugin-real-path "popwin-el"))
 (require 'popwin)
@@ -148,11 +109,6 @@
         (get-plugin-real-path "yasnippet/snippets")
         ))
 (yas-global-mode 1)
-
-(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
 (setq popwin:special-display-config
   '(("*Help*"  :height 30)
@@ -235,8 +191,6 @@
 (set-face-background 'git-gutter:added "gray5")
 (set-face-background 'git-gutter:unchanged "gray5")
 
-(set-face-background font-lock-warning-face "gray5")
-
 (add-to-list 'load-path (get-plugin-real-path "smex"))
 (require 'smex) ; Not needed if you use package.el
 (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
@@ -249,6 +203,50 @@
 (add-to-list 'load-path (get-plugin-real-path "window-number"))
 (require 'window-number)
 (window-number-meta-mode 1)
+
+(add-to-list 'load-path (get-plugin-real-path "hl-todo"))
+(require 'hl-todo)
+(global-hl-todo-mode t)
+(setq hl-todo-activate-in-modes '(c-mode lisp-mode python-mode))
+
+;(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
+;(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+;(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; (add-to-list 'load-path (get-plugin-real-path "magit/lisp"))
+;;(require 'magit)
+
+;;(with-eval-after-load 'info
+;;  (info-initialize)
+;;  (add-to-list 'Info-directory-list
+;;               (get-plugin-real-path "magit/Documentation")))
+
+;(add-to-list 'load-path (get-plugin-real-path "visual-regexp.el"))
+;(add-to-list 'load-path (get-plugin-real-path "visual-regexp-steroids.el"))
+;(require 'visual-regexp-steroids)
+;(define-key global-map (kbd "C-c r") 'vr/replace)
+;(define-key global-map (kbd "C-c q") 'vr/query-replace)
+;;; to use visual-regexp's isearch instead of the built-in regexp isearch, also include the following lines:
+;(define-key esc-map (kbd "C-r") 'vr/isearch-backward) ;; C-M-r
+;(define-key esc-map (kbd "C-s") 'vr/isearch-forward) ;; C-M-s
+
+;(add-to-list 'load-path (get-plugin-real-path "clojure-mode"))
+;; (add-to-list 'load-path (get-plugin-real-path "nrepl.el"))
+;(require 'clojure-mode)
+;; (require 'nrepl)
+;; (setq nrepl-port "4555")
+
+;; (add-to-list 'load-path (get-plugin-real-path "rust-mode"))
+;; (autoload 'rust-mode "rust-mode" nil t)
+;; (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+;(add-to-list 'load-path (get-plugin-real-path "markdown-mode"))
+;(autoload 'markdown-mode "markdown-mode"
+;  "Major mode for editing Markdown files" t)
+;(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;(add-to-list 'load-path (get-plugin-real-path "ag.el"))
 ;(require 'ag)
