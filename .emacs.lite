@@ -266,6 +266,11 @@
 		(rp (string-match ")" s)))
 	(substring s (+ 1 lp) rp)))
 
+(defun inquotes (s)
+  (let* ((s (s-right (- (length s) (string-match "\"" s) 1) s))
+         (rp (string-match "\"" s)))
+	(substring s 0 rp)))
+
 (defun rdebug-values (vs)
   (let* ((rps (s-join ", " (-map (lambda (x) (format "%s=%%O" x)) vs)))
 		 (vss (s-join ", " vs))
@@ -291,6 +296,21 @@
   (let* ((line-content (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
 		 (vs (split-string line-content)))
 	(rdebug-values vs)))
+
+(defun -get-fun-macro-line (name)
+  (message name)
+  (format "\"%s\": %s," name (s-join "_" (append '("I_OSP") (-map 'upcase (s-split-words name)))))
+  )
+
+;; "IsForbidxxx":1 -> "IsForbidxxx": T_OSP_FORBID_XXX
+(defun rdmacros ()
+  (interactive)
+  (let* ((line-content (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+         (fun-name (inquotes line-content))
+         (macro-line (-get-fun-macro-line fun-name))
+         (-d (delete-region (line-beginning-position) (line-end-position)))
+         (-g (goto-char (line-beginning-position))))
+    (insert macro-line)))
 
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
