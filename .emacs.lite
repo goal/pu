@@ -209,6 +209,14 @@
 (global-hl-todo-mode t)
 (setq hl-todo-activate-in-modes '(c-mode lisp-mode python-mode))
 
+(add-to-list 'load-path (get-plugin-real-path "undo-tree"))
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+(add-to-list 'load-path (get-plugin-real-path "clang-format"))
+(require 'clang-format)
+(global-set-key (kbd "C-x o") 'clang-format-region)
+
 ;(add-to-list 'load-path (get-plugin-real-path "lua-mode"))
 ;(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 ;(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))

@@ -30,10 +30,15 @@
         "https://github.com/rust-lang/rust-mode",
         "git://github.com/magit/magit.git",
         "git://jblevins.org/git/markdown-mode.git",
-        "https://github.com/tarsius/hl-todo"
+        "https://github.com/tarsius/hl-todo",
+        "http://www.dr-qubit.org/git/undo-tree.git"
     ],
     "hg":
     [
         "https://bitbucket.org/lyro/evil"
+    ],
+    "svn":
+    [
+        "http://llvm.org/svn/llvm-project/cfe/trunk/tools/clang-format"
     ]
 }
