@@ -7,3 +7,4 @@
 !.gitignore
 !.vimrc
 !.tmux.conf
+!.clang-format
