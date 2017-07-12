@@ -16,6 +16,7 @@ except:
 
 GIT_PATH = ["git", "C:/Program Files/Git/bin/git.exe"]
 HG_PATH = ["hg", "E:/Program Files/TortoiseHg/hg.exe"]
+SVN_PATH = ["svn", "E:/Program Files/TortoiseSvn/svn.exe"]
 
 
 def get_cmd_bin(cand):
@@ -28,6 +29,7 @@ def get_cmd_bin(cand):
 
 GIT = get_cmd_bin(GIT_PATH)
 HG = get_cmd_bin(HG_PATH)
+SVN = get_cmd_bin(SVN_PATH)
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -50,6 +52,14 @@ def hg_up():
     """hg pull and update"""
     return subprocess.call([HG, "pull"]) or subprocess.call([HG, "update"])
     
+def svn_clone(url):
+    """svn clone *"""
+    return subprocess.call([SVN, "checkout", url])
+
+def svn_up():
+    """svn update"""
+    return subprocess.call([SVN, "update"])
+
 def exists(repo, _dir='.'):
     repo_name = os.path.split(repo)[1]
     sdirs = [i for i in os.listdir(_dir) if os.path.isdir(i)]
@@ -79,8 +89,20 @@ def sort_repo(repos, _dir='.'):
 
 def handle_single_target(target_link, back_dir, repo_type=GIT):
     # GIT or HG
-    up_fun = git_up if repo_type == GIT else hg_up
-    clone_fun = git_clone if repo_type == GIT else hg_clone
+    ups = {
+        GIT: git_up,
+        HG: hg_up,
+        SVN: svn_up
+    }
+
+    clones = {
+        GIT: git_clone,
+        HG: hg_clone,
+        SVN: svn_clone
+    }
+
+    up_fun = ups[repo_type]
+    clone_fun = clones[repo_type]
 
     repo_name = os.path.split(target_link)[1]
     if target_link.endswith(".git"):
@@ -100,7 +122,9 @@ def handle_single_target(target_link, back_dir, repo_type=GIT):
 
 
 def done_cb(future, *args, **kwargs):
-    pass
+    excp = future.exception()
+    if excp:
+        print(excp)
     
 
 def main():
@@ -120,22 +144,24 @@ def main():
 
     with open("plist.json") as f:
         repo_dict = json.load(f)
+
+    repo_types = {
+        "git": GIT,
+        "hg": HG,
+        "svn": SVN
+    }
     
     if not PYTHON3:
-        for repo_name in sort_repo(repo_dict["git"]):
-            handle_single_target(repo_name, target_dir, GIT)
-        for repo_name in sort_repo(repo_dict["hg"]):
-            handle_single_target(repo_name, target_dir, HG)
+        for k, v in repo_types.items():
+            for repo_name in sort_repo(repo_dict[k]):
+                handle_single_target(repo_name, target_dir, v)
         return
 
     with concurrent.futures.ProcessPoolExecutor(5) as executor:
-        for repo_name in sort_repo(repo_dict["git"]):
-            future = executor.submit(handle_single_target, repo_name, target_dir, GIT)
-            future.add_done_callback(done_cb)
-        for repo_name in sort_repo(repo_dict["hg"]):
-            future = executor.submit(handle_single_target, repo_name, target_dir, HG)
-            future.add_done_callback(done_cb)
-
+        for k, v in repo_types.items():
+            for repo_name in sort_repo(repo_dict[k]):
+                future = executor.submit(handle_single_target, repo_name, target_dir, v)
+                future.add_done_callback(done_cb)
 
 if __name__ == '__main__':
     main()
