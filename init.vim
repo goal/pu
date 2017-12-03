@@ -33,7 +33,7 @@ set listchars=tab:»\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list                " Show problematic characters.
 
 " Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace guifg=red
+highlight ExtraWhitespace guifg=darkred guibg=darkgray
 match ExtraWhitespace /\s\+$\|\t/
 
 if has("cscope")
