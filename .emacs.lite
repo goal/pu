@@ -29,10 +29,12 @@
 
 (add-to-list 'custom-theme-load-path (get-plugin-real-path "cyberpunk-theme.el"))
 (add-to-list 'custom-theme-load-path (get-plugin-real-path "emacs-color-theme-solarized"))
+(add-to-list 'custom-theme-load-path (get-plugin-real-path "rainy-theme"))
 
-(if (window-system)
-  (load-theme 'solarized-dark t)
-  (load-theme 'cyberpunk t))
+;; (if (window-system)
+;;   (load-theme 'solarized-dark t)
+;;   (load-theme 'cyberpunk t))
+(load-theme 'rainy t)
 
 (menu-bar-mode -1)
 (if (window-system)

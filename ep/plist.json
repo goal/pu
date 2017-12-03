@@ -31,6 +31,7 @@
         "git://github.com/magit/magit.git",
         "git://jblevins.org/git/markdown-mode.git",
         "https://github.com/tarsius/hl-todo",
+        "https://github.com/goal/rainy-theme",
         "http://www.dr-qubit.org/git/undo-tree.git"
     ],
     "hg":
