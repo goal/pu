@@ -7,16 +7,19 @@ Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tweekmonster/deoplete-clang2'
 
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'mhinz/vim-grepper'
-
 Plug 'sbdchd/neoformat'
+Plug 'jsfaint/gen_tags.vim'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
@@ -103,12 +106,6 @@ augroup deniteresize
         \'winheight', winheight(0) / 2)
 augroup end
 
-call denite#custom#option('default', {
-      \ 'prompt': '>'
-      \ })
-
-call denite#custom#var('file_rec', 'command',
-      \ ['rg', '--files', '--glob', '!.git', ''])
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts',
       \ ['--hidden', '--vimgrep', '--no-heading', '-S'])
@@ -131,20 +128,16 @@ call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'nor
 
 nnoremap <C-p> :<C-u>Denite file_rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
-nnoremap <leader><Space>s :<C-u>DeniteBufferDir buffer<CR>
 nnoremap <leader>8 :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
 nnoremap <leader>/ :<C-u>Denite grep:. -mode=normal<CR>
-nnoremap <leader><Space>/ :<C-u>DeniteBufferDir grep:. -mode=normal<CR>
-nnoremap <leader>d :<C-u>DeniteBufferDir file_rec<CR>
 
 hi link deniteMatchedChar Special
 
 " denite-extra
 
-nnoremap <leader>o :<C-u>Denite location_list -mode=normal -no-empty<CR>
-nnoremap <leader>hs :<C-u>Denite history:search -mode=normal<CR>
-nnoremap <leader>hc :<C-u>Denite history:cmd -mode=normal<CR>
 nnoremap <leader>c :<C-u>Denite workspaceSymbol -mode=normal<CR>
+nnoremap <leader>t :<C-u>Denite outline<CR>
+nnoremap <leader>x :<C-u>Denite command_history<CR>
 
 " language server
 
@@ -165,3 +158,37 @@ augroup LanguageClient_config
     autocmd!
     autocmd User LanguageClientStarted call LanguageClient_setLoggingLevel('DEBUG')
 augroup end
+
+let g:gen_tags#ctags_bin='exctags'
+
+function s:rdv()
+python <<PYTHONEOF
+import vim
+words = vim.current.line.split()
+line = "debug_message(\""
+line += ",".join("%s=%%O" % s for s in words)
+line += "\", "
+line += ", ".join(words)
+line += ");"
+vim.current.line = line
+PYTHONEOF
+endfunction
+
+function s:rd()
+python <<PYTHONEOF
+import vim
+import re
+line = vim.current.line
+s = line.replace("...", "").replace("*", "")
+s = s[s.index("("): s.index(")")]
+vs = []
+for x in s.split(","):
+    t, v = x.strip().split()
+    vs.append(v)
+vim.current.line = " ".join(vs)
+PYTHONEOF
+call s:rdv()
+endfunction
+
+command! -range=0 Rd call s:rd()
+command! -range=0 Rdv call s:rdv()
