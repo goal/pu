@@ -3,6 +3,7 @@
 " - Avoid using standard Vim directory names like 'plugin'
 if has("win32")
     call plug#begin('~/appdata/local/nvim-data/nplug')
+    let g:python3_host_prog = 'py'
 else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
