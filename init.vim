@@ -1,7 +1,11 @@
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.local/share/nvim/nplug')
+if has("win32")
+    call plug#begin('~/appdata/local/nvim-data/nplug')
+else
+    call plug#begin('~/.local/share/nvim/nplug')
+endif
 
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
