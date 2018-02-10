@@ -4,16 +4,17 @@
 if has("win32")
     call plug#begin('~/appdata/local/nvim-data/nplug')
     let g:python3_host_prog = 'py'
+    set acd
 else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
 
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tweekmonster/deoplete-clang2'
-
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
 
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 
@@ -26,10 +27,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
+Plug 'justinmk/vim-sneak'
+
 Plug 'mhartington/oceanic-next'
 Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
-Plug 'dracula/vim'
 
 Plug 'itchyny/lightline.vim'
 
@@ -93,9 +95,6 @@ nnoremap <M-2> :2winc w<CR>
 nnoremap <M-3> :3winc w<CR>
 nnoremap <M-4> :4winc w<CR>
 
-" grepper
-nnoremap <C-x>y :Grepper<CR>
-
 " neoformat
 nnoremap <C-x>o :Neoformat<CR>
 vnoremap <C-x>o :Neoformat<CR>
@@ -110,6 +109,13 @@ augroup deniteresize
   autocmd VimResized,VimEnter * call denite#custom#option('default',
         \'winheight', winheight(0) / 2)
 augroup end
+
+if executable("fd")
+    call denite#custom#var('file_rec', 'command', ['fd', '-t', 'f', '-c', 'never', '', ':directory'])
+endif
+if executable("rg")
+    call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git', ''])
+endif
 
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts',
@@ -140,7 +146,7 @@ hi link deniteMatchedChar Special
 
 " denite-extra
 
-nnoremap <leader>c :<C-u>Denite workspaceSymbol -mode=normal<CR>
+" nnoremap <leader>c :<C-u>Denite workspaceSymbol -mode=normal<CR>
 nnoremap <leader>t :<C-u>Denite outline<CR>
 nnoremap <leader>x :<C-u>Denite command_history<CR>
 
@@ -182,7 +188,6 @@ endfunction
 function s:rd()
 python <<PYTHONEOF
 import vim
-import re
 line = vim.current.line
 s = line.replace("...", "").replace("*", "")
 s = s[s.index("("): s.index(")")]
