@@ -16,7 +16,7 @@ Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tweekmonster/deoplete-clang2'
 
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'master', 'do': ':UpdateRemotePlugins' }
 
 Plug 'airblade/vim-gitgutter'
 
@@ -34,6 +34,10 @@ Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
 
 Plug 'itchyny/lightline.vim'
+
+Plug '~/R/wplug', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
 
 " Initialize plugin system
 call plug#end()
@@ -154,7 +158,8 @@ nnoremap <leader>x :<C-u>Denite command_history<CR>
 
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
-let g:LanguageClient_serverCommands = {"python": ['pyls'], "c": ['/home/wyj/bin/lpcs'], "java": ['/home/wyj/R/jdt/jls']}
+" "c": ['/home/wyj/bin/lpcs'], 
+let g:LanguageClient_serverCommands = {"python": ['pyls'], "java": ['/home/wyj/R/jdt/jls']}
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsDisplay = {}
@@ -171,34 +176,3 @@ augroup LanguageClient_config
 augroup end
 
 let g:gen_tags#ctags_bin='exctags'
-
-function s:rdv()
-python <<PYTHONEOF
-import vim
-words = vim.current.line.split()
-line = "debug_message(\""
-line += ",".join("%s=%%O" % s for s in words)
-line += "\", "
-line += ", ".join(words)
-line += ");"
-vim.current.line = line
-PYTHONEOF
-endfunction
-
-function s:rd()
-python <<PYTHONEOF
-import vim
-line = vim.current.line
-s = line.replace("...", "").replace("*", "")
-s = s[s.index("("): s.index(")")]
-vs = []
-for x in s.split(","):
-    t, v = x.strip().split()
-    vs.append(v)
-vim.current.line = " ".join(vs)
-PYTHONEOF
-call s:rdv()
-endfunction
-
-command! -range=0 Rd call s:rd()
-command! -range=0 Rdv call s:rdv()
