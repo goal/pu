@@ -25,12 +25,9 @@ Plug 'jsfaint/gen_tags.vim'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
 
 Plug 'justinmk/vim-sneak'
 
-Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
 Plug 'iCyMind/NeoSolarized'
 
 Plug 'itchyny/lightline.vim'
