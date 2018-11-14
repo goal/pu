@@ -32,7 +32,7 @@ Plug 'iCyMind/NeoSolarized'
 
 Plug 'itchyny/lightline.vim'
 
-Plug '~/R/wplug', { 'do': ':UpdateRemotePlugins' }
+Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
 
@@ -112,10 +112,10 @@ augroup deniteresize
 augroup end
 
 if executable("fd")
+    " denite will replace :directory with cwd
     call denite#custom#var('file_rec', 'command', ['fd', '-t', 'f', '-c', 'never', '', ':directory'])
-endif
-if executable("rg")
-    call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git', ''])
+elseif executable("rg")
+    call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
 endif
 
 call denite#custom#var('grep', 'command', ['rg'])
