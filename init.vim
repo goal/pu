@@ -14,9 +14,12 @@ Plug 'SirVer/ultisnips'
 
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tweekmonster/deoplete-clang2'
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'master', 'do': ':UpdateRemotePlugins' }
+if has("win32")
+    Plug 'goal/LanguageClient-neovim', { 'branch': 'master', 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+endif
 
 Plug 'airblade/vim-gitgutter'
 
@@ -157,6 +160,7 @@ nnoremap <leader>x :<C-u>Denite command_history<CR>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
 let g:LanguageClient_serverCommands = {"python": ['pyls'], "java": ['/home/wyj/R/jdt/jls']}
+", "c": ['clangd', '-compile-commands-dir=build']}
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsDisplay = {}
@@ -166,6 +170,7 @@ let g:LanguageClient_diagnosticsDisplay[3] = {"name": "Information", "texthl": "
 let g:LanguageClient_diagnosticsDisplay[4] = {"name": "Hint", "texthl": "ALEInfo", "signText": "♦", "signTexthl": "ALEInfoSign"}
 nnoremap <C-x>f :call LanguageClient_textDocument_formatting()<CR>
 nnoremap <C-x>r :call LanguageClient_textDocument_rangeFormatting()<CR>
+nnoremap <C-x>g :call LanguageClient#textDocument_definition()<CR>
 
 augroup LanguageClient_config
     autocmd!
