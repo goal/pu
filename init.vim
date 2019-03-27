@@ -24,7 +24,7 @@ endif
 Plug 'airblade/vim-gitgutter'
 
 Plug 'sbdchd/neoformat'
-Plug 'jsfaint/gen_tags.vim'
+" Plug 'jsfaint/gen_tags.vim'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -37,7 +37,7 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
+" Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
 
 " Initialize plugin system
 call plug#end()
@@ -116,9 +116,9 @@ augroup end
 
 if executable("fd")
     " denite will replace :directory with cwd
-    call denite#custom#var('file_rec', 'command', ['fd', '-t', 'f', '-c', 'never', '', ':directory'])
+    call denite#custom#var('file/rec', 'command', ['fd', '-t', 'f', '-c', 'never', '', ':directory'])
 elseif executable("rg")
-    call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
+    call denite#custom#var('file/rec', 'command', ['rg', '--files', '--glob', '!.git'])
 endif
 
 call denite#custom#var('grep', 'command', ['rg'])
@@ -141,7 +141,7 @@ call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
 
-nnoremap <C-p> :<C-u>Denite file_rec<CR>
+nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
 nnoremap <leader>8 :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
 nnoremap <leader>/ :<C-u>Denite grep:. -mode=normal<CR>
