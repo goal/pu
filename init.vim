@@ -28,12 +28,15 @@ Plug 'sbdchd/neoformat'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 
 Plug 'justinmk/vim-sneak'
 
 Plug 'iCyMind/NeoSolarized'
 
 Plug 'itchyny/lightline.vim'
+
+Plug 'junegunn/vim-easy-align'
 
 Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 
@@ -84,7 +87,7 @@ endif
 
 nnoremap <C-x>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-x>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+" nnoremap <C-x>c :cs find c <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-x>t :cs find t <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-x>T :cs find t 
 nnoremap <C-x>e :cs find e <C-R>=expand("<cword>")<CR><CR>
@@ -178,3 +181,9 @@ augroup LanguageClient_config
 augroup end
 
 let g:gen_tags#ctags_bin='exctags'
+
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
