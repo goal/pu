@@ -41,6 +41,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 
 " Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
+"
+Plug 'luochen1990/rainbow'
 
 " Initialize plugin system
 call plug#end()
@@ -162,10 +164,9 @@ nnoremap <leader>x :<C-u>Denite command_history<CR>
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
-let g:LanguageClient_serverCommands = {"python": ['pyls'], "java": ['/home/wyj/R/jdt/jls']}
-", "c": ['clangd', '-compile-commands-dir=build']}
+let g:LanguageClient_serverCommands = {"python": ['pyls'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
 " Automatically start language servers.
-let g:LanguageClient_autoStart = 1
+let g:LanguageClient_autoStart = 0
 let g:LanguageClient_diagnosticsDisplay = {}
 let g:LanguageClient_diagnosticsDisplay[1] = {"name": "Error", "texthl": "ALEError", "signText": "♠", "signTexthl": "ALEErrorSign"}
 let g:LanguageClient_diagnosticsDisplay[2] = {"name": "Warning", "texthl": "ALEWarning", "signText": "♥", "signTexthl": "ALEWarningSign"}
@@ -187,3 +188,5 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
