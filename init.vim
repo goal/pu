@@ -39,10 +39,13 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
 
 Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
+" Plug '~/R/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 
 " Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
 "
 Plug 'luochen1990/rainbow'
+
+Plug 'neoclide/denite-extra'
 
 " Initialize plugin system
 call plug#end()
@@ -150,6 +153,7 @@ nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
 nnoremap <leader>8 :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
 nnoremap <leader>/ :<C-u>Denite grep:. -mode=normal<CR>
+nnoremap <leader>q :<C-u>Denite quickfix<CR>
 
 hi link deniteMatchedChar Special
 
@@ -159,14 +163,19 @@ hi link deniteMatchedChar Special
 nnoremap <leader>t :<C-u>Denite outline<CR>
 nnoremap <leader>x :<C-u>Denite command_history<CR>
 
+" delete
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
 " language server
 
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
-let g:LanguageClient_serverCommands = {"python": ['pyls'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
+let g:LanguageClient_serverCommands = {"python": ['pyls']}
+" , 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
 " Automatically start language servers.
-let g:LanguageClient_autoStart = 0
+let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsDisplay = {}
 let g:LanguageClient_diagnosticsDisplay[1] = {"name": "Error", "texthl": "ALEError", "signText": "♠", "signTexthl": "ALEErrorSign"}
 let g:LanguageClient_diagnosticsDisplay[2] = {"name": "Warning", "texthl": "ALEWarning", "signText": "♥", "signTexthl": "ALEWarningSign"}
