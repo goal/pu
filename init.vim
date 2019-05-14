@@ -5,6 +5,7 @@ if has("win32")
     call plug#begin('~/appdata/local/nvim-data/nplug')
     let g:python3_host_prog = 'py'
     set acd
+    set clipboard+=unnamedplus
 else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
