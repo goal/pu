@@ -173,10 +173,9 @@ vnoremap <leader>d "_d
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
-let g:LanguageClient_serverCommands = {"python": ['pyls']}
-" , 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
+let g:LanguageClient_serverCommands = {"python": ['pyls'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
 " Automatically start language servers.
-let g:LanguageClient_autoStart = 1
+let g:LanguageClient_autoStart = 0
 let g:LanguageClient_diagnosticsDisplay = {}
 let g:LanguageClient_diagnosticsDisplay[1] = {"name": "Error", "texthl": "ALEError", "signText": "♠", "signTexthl": "ALEErrorSign"}
 let g:LanguageClient_diagnosticsDisplay[2] = {"name": "Warning", "texthl": "ALEWarning", "signText": "♥", "signTexthl": "ALEWarningSign"}
@@ -189,6 +188,7 @@ nnoremap <C-x>g :call LanguageClient#textDocument_definition()<CR>
 augroup LanguageClient_config
     autocmd!
     autocmd User LanguageClientStarted call LanguageClient_setLoggingLevel('DEBUG')
+    autocmd VimEnter *.py LanguageClientStart
 augroup end
 
 let g:gen_tags#ctags_bin='exctags'
