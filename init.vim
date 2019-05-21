@@ -7,6 +7,7 @@ if has("win32")
     set acd
     set clipboard+=unnamedplus
     nnoremap <C-c> "+y
+    inoremap <C-v> "+p
 else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
