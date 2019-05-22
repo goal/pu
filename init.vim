@@ -6,8 +6,8 @@ if has("win32")
     let g:python3_host_prog = 'py'
     set acd
     set clipboard+=unnamedplus
-    nnoremap <C-c> "+y
-    inoremap <C-v> "+p
+    vnoremap <C-c> "+y
+    inoremap <C-v> <C-o>"+p
 else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
