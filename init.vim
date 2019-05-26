@@ -50,6 +50,8 @@ Plug 'luochen1990/rainbow'
 
 Plug 'neoclide/denite-extra'
 
+Plug 'goal/denite-gtags'
+
 " Initialize plugin system
 call plug#end()
 
@@ -165,6 +167,16 @@ hi link deniteMatchedChar Special
 " nnoremap <leader>c :<C-u>Denite workspaceSymbol -mode=normal<CR>
 nnoremap <leader>t :<C-u>Denite outline<CR>
 nnoremap <leader>x :<C-u>Denite command_history<CR>
+
+nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
+nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
+" list all tags
+nnoremap <leader>l :Denite -buffer-name=gtags_completion gtags_completion<cr>
+" nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
+" nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
+" nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
+" nnoremap <leader>F :Denite -buffer-name=gtags_files gtags_files<cr>
+" nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 
 " delete
 nnoremap <leader>d "_d
