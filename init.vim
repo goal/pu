@@ -36,6 +36,12 @@ Plug 'tpope/vim-commentary'
 Plug 'justinmk/vim-sneak'
 
 Plug 'iCyMind/NeoSolarized'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'agude/vim-eldar'
+Plug 'haishanh/night-owl.vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'gruvbox-community/gruvbox'
 
 Plug 'itchyny/lightline.vim'
 
@@ -62,7 +68,15 @@ set expandtab
 set termguicolors
 
 set background=dark
-colorscheme NeoSolarized
+" colorscheme NeoSolarized
+" colorscheme dracula
+" colorscheme eldar
+" colorscheme night-owl
+" colorscheme moonfly
+colorscheme PaperColor
+" colorscheme gruvbox
+
+let g:lightline={'colorscheme': 'default'}
 
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
@@ -77,8 +91,6 @@ set list                " Show problematic characters.
 highlight ExtraWhitespace guifg=brown
 " guibg=darkgray
 match ExtraWhitespace /\s\+$\|\t/
-
-let g:lightline={'colorscheme': 'solarized'}
 
 if has("cscope")
     set csto=0
@@ -159,14 +171,16 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
+call denite#custom#option('_', {'split': 'floating'})
 
 nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
-nnoremap <leader>8 :<C-u>DeniteCursorWord grep:. -mode=normal<CR>
-nnoremap <leader>/ :<C-u>Denite grep:. -mode=normal<CR>
+nnoremap <leader>8 :<C-u>DeniteCursorWord -no-empty grep<CR>
+nnoremap <leader>/ :<C-u>Denite -no-empty grep<CR>
 nnoremap <leader>q :<C-u>Denite quickfix<CR>
+nnoremap <leader>c :<C-u>Denite colorscheme<CR>
 
-hi link deniteMatchedChar Special
+" hi link deniteMatchedChar Special
 
 " denite-extra
 
