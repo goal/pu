@@ -42,6 +42,7 @@ Plug 'haishanh/night-owl.vim'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
+Plug 'chriskempson/base16-vim'
 
 Plug 'itchyny/lightline.vim'
 
@@ -142,12 +143,21 @@ function! s:denite_my_settings() abort
   \ denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> <C-v>
   \ denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> q
+  nnoremap <silent><buffer><expr> <C-c>
   \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> i
   \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space>
   \ denite#do_map('toggle_select').'j'
+endfunction
+
+autocmd FileType denite-filter
+\ call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  inoremap <silent><buffer><expr> <C-c>
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <C-c>
+  \ denite#do_map('quit')
 endfunction
 
 " reset 50% winheight on window resize
@@ -171,7 +181,7 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'split': 'floating'})
+call denite#custom#option('_', {'split': 'floating', 'wincol': 27, 'winwidth': 82, 'auto_resize': 1, "mathcers": ["matcher/regexp"]})
 
 nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
