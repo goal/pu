@@ -33,7 +33,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 
-Plug 'justinmk/vim-sneak'
+Plug 'easymotion/vim-easymotion'
 
 Plug 'iCyMind/NeoSolarized'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -79,7 +79,6 @@ colorscheme PaperColor
 " colorscheme gruvbox
 
 let g:lightline={'colorscheme': 'default'}
-
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 set completeopt+=noinsert
