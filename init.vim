@@ -24,7 +24,7 @@ else
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 endif
 
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 
 Plug 'sbdchd/neoformat'
 Plug 'jsfaint/gen_tags.vim'
@@ -48,15 +48,14 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'junegunn/vim-easy-align'
 
-Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
-
-" Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
-"
 Plug 'luochen1990/rainbow'
 
 Plug 'neoclide/denite-extra'
 
+Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
 Plug 'goal/denite-gtags'
+
+" Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
 
 " Initialize plugin system
 call plug#end()
@@ -67,6 +66,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set termguicolors
+set encoding=UTF-8
+set scrolloff=3
 
 set background=dark
 " colorscheme NeoSolarized
