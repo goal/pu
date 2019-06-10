@@ -78,6 +78,7 @@ set background=dark
 colorscheme PaperColor
 " colorscheme gruvbox
 
+set noshowmode
 let g:lightline={'colorscheme': 'default'}
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
@@ -87,37 +88,6 @@ set completeopt+=noinsert
 " trailing whitespace, and end-of-lines. VERY useful!
 set listchars=tab:»\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list                " Show problematic characters.
-
-" Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace guifg=brown
-" guibg=darkgray
-match ExtraWhitespace /\s\+$\|\t/
-
-if has("cscope")
-    set csto=0
-    set cst
-    set nocsverb
-    " add any database in current directory
-    if filereadable("cscope.out")
-        cs add cscope.out
-    " else add database pointed to by environment
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-    endif
-    set csverb
-endif
-
-nnoremap <C-x>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-" nnoremap <C-x>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>T :cs find t 
-nnoremap <C-x>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nnoremap <C-x>F :cs find f 
-nnoremap <C-x>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nnoremap <C-x>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-nnoremap <C-x>a :cs find a <C-R>=expand("<cword>")<CR><CR>
 
 nnoremap <M-1> :1winc w<CR>
 nnoremap <M-2> :2winc w<CR>
@@ -234,8 +204,6 @@ augroup LanguageClient_config
     autocmd User LanguageClientStarted call LanguageClient_setLoggingLevel('DEBUG')
     autocmd VimEnter *.py LanguageClientStart
 augroup end
-
-let g:gen_tags#ctags_bin='exctags'
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
