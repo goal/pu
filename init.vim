@@ -151,7 +151,7 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'split': 'floating', 'wincol': 27, 'winwidth': 82, 'auto_resize': 1, "mathcers": ["matcher/regexp"]})
+call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': 1, "mathcers": ["matcher/regexp"]})
 
 nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
