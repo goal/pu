@@ -32,6 +32,7 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fireplace'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -79,7 +80,7 @@ colorscheme PaperColor
 " colorscheme gruvbox
 
 set noshowmode
-let g:lightline={'colorscheme': 'default'}
+let g:lightline={'colorscheme': 'PaperColor'}
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 set completeopt+=noinsert
@@ -88,6 +89,8 @@ set completeopt+=noinsert
 " trailing whitespace, and end-of-lines. VERY useful!
 set listchars=tab:»\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list                " Show problematic characters.
+
+let g:ultisnips_python_style = 'google'
 
 nnoremap <M-1> :1winc w<CR>
 nnoremap <M-2> :2winc w<CR>
