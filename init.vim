@@ -47,6 +47,11 @@ Plug 'chriskempson/base16-vim'
 
 Plug 'itchyny/lightline.vim'
 
+" Archlinux vimfiles
+Plug '/usr/share/vim/vimfiles'
+" homebrew fzf vimfiles
+Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 
 Plug 'luochen1990/rainbow'
@@ -154,7 +159,7 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': 1, "mathcers": ["matcher/regexp"]})
+call denite#custom#option('_', {'statusline': v:false, 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true, "mathcers": ["matcher/regexp"]})
 
 nnoremap <C-p> :<C-u>Denite file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
@@ -186,26 +191,28 @@ nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 
 " language server
-
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
 let g:LanguageClient_serverCommands = {"python": ['pyls'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 0
-let g:LanguageClient_diagnosticsDisplay = {}
-let g:LanguageClient_diagnosticsDisplay[1] = {"name": "Error", "texthl": "ALEError", "signText": "♠", "signTexthl": "ALEErrorSign"}
-let g:LanguageClient_diagnosticsDisplay[2] = {"name": "Warning", "texthl": "ALEWarning", "signText": "♥", "signTexthl": "ALEWarningSign"}
-let g:LanguageClient_diagnosticsDisplay[3] = {"name": "Information", "texthl": "ALEInfo", "signText": "♣", "signTexthl": "ALEInfoSign"}
-let g:LanguageClient_diagnosticsDisplay[4] = {"name": "Hint", "texthl": "ALEInfo", "signText": "♦", "signTexthl": "ALEInfoSign"}
-nnoremap <C-x>f :call LanguageClient_textDocument_formatting()<CR>
-nnoremap <C-x>r :call LanguageClient_textDocument_rangeFormatting()<CR>
-nnoremap <C-x>g :call LanguageClient#textDocument_definition()<CR>
+
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <C-x>f :call LanguageClient_textDocument_formatting()<CR>
+    nnoremap <C-x>r :call LanguageClient_textDocument_rangeFormatting()<CR>
+    nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <leader>R :call LanguageClient#textDocument_rename()<CR>
+  endif
+endfunction
 
 augroup LanguageClient_config
     autocmd!
     autocmd User LanguageClientStarted call LanguageClient_setLoggingLevel('DEBUG')
     autocmd VimEnter *.py LanguageClientStart
+    autocmd FileType * call LC_maps()
 augroup end
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
