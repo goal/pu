@@ -17,6 +17,11 @@ Plug 'SirVer/ultisnips'
 
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-dictionary'
+Plug 'deoplete-plugins/deoplete-tag'
+
+Plug 'machakann/vim-swap'
+Plug 'kassio/neoterm'
 
 if has("win32")
     Plug 'goal/LanguageClient-neovim', { 'branch': 'master', 'do': ':UpdateRemotePlugins' }
@@ -86,9 +91,18 @@ colorscheme PaperColor
 
 set noshowmode
 let g:lightline={'colorscheme': 'PaperColor'}
-let g:deoplete#enable_at_startup = 1
+
 set completeopt-=preview
 set completeopt+=noinsert
+
+let g:deoplete#enable_at_startup = 1
+setlocal dictionary+=/usr/share/dict/american-english
+" Remove this if you'd like to use fuzzy search
+call deoplete#custom#source('dictionary', 'matchers', ['matcher_head'])
+" If dictionary is already sorted, no need to sort it again.
+call deoplete#custom#source('dictionary', 'sorters', [])
+" Do not complete too short words
+call deoplete#custom#source('dictionary', 'min_pattern_length', 4)
 
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines. VERY useful!
@@ -136,14 +150,8 @@ function! s:denite_filter_my_settings() abort
   \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> <C-c>
   \ denite#do_map('quit')
+  call deoplete#custom#buffer_option('auto_complete', v:false)
 endfunction
-
-" reset 50% winheight on window resize
-augroup deniteresize
-  autocmd!
-  autocmd VimResized,VimEnter * call denite#custom#option('default',
-        \'winheight', winheight(0) / 2)
-augroup end
 
 if executable("fd")
     " denite will replace :directory with cwd
@@ -159,9 +167,9 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'statusline': v:false, 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true, "mathcers": ["matcher/regexp"]})
+call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true})
 
-nnoremap <C-p> :<C-u>Denite file/rec<CR>
+nnoremap <C-p> :<C-u>Denite -start-filter file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
 nnoremap <leader>8 :<C-u>DeniteCursorWord -no-empty grep<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep<CR>
@@ -173,8 +181,8 @@ nnoremap <leader>c :<C-u>Denite colorscheme<CR>
 " denite-extra
 
 " nnoremap <leader>c :<C-u>Denite workspaceSymbol -mode=normal<CR>
-nnoremap <leader>t :<C-u>Denite outline<CR>
-nnoremap <leader>x :<C-u>Denite command_history<CR>
+nnoremap <leader>t :<C-u>Denite -start-filter outline<CR>
+nnoremap <leader>x :<C-u>Denite -start-filter command_history<CR>
 
 nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
