@@ -175,6 +175,8 @@ nnoremap <leader>8 :<C-u>DeniteCursorWord -no-empty grep<CR>
 nnoremap <leader>/ :<C-u>Denite -no-empty grep<CR>
 nnoremap <leader>q :<C-u>Denite quickfix<CR>
 nnoremap <leader>c :<C-u>Denite colorscheme<CR>
+nnoremap <leader>` :<C-u>Denite mark<CR>
+nnoremap <leader>m :AutoMark<CR>
 
 " hi link deniteMatchedChar Special
 
