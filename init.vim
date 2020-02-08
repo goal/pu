@@ -77,6 +77,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set termguicolors
+set fileencodings=utf-8,gb18030
 set encoding=UTF-8
 set scrolloff=3
 
@@ -167,7 +168,8 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true})
+call denite#custom#option('_', {'split': 'floating', 'auto_resize': v:true})
+" call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true})
 
 nnoremap <C-p> :<C-u>Denite -start-filter file/rec<CR>
 nnoremap <leader>s :<C-u>Denite buffer<CR>
@@ -204,9 +206,10 @@ vnoremap <leader>d "_d
 " Required for operations modifying multiple buffers like rename.<Paste>
 set hidden
 " "c": ['/home/wyj/bin/lpcs'], 
-let g:LanguageClient_serverCommands = {"python": ['pyls'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
+let g:LanguageClient_serverCommands = {"python": ['pyls', '--log-file=/tmp/pyls.log', '-v'], 'c': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}'], 'cpp': ['cquery', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery/"}']}
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 0
+let g:LanguageClient_loggingFile = '/tmp/lc.log'
 
 function LC_maps()
   if has_key(g:LanguageClient_serverCommands, &filetype)
