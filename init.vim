@@ -56,6 +56,7 @@ Plug 'itchyny/lightline.vim'
 Plug '/usr/share/vim/vimfiles'
 " homebrew fzf vimfiles
 Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 
