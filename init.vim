@@ -12,35 +12,58 @@ else
     call plug#begin('~/.local/share/nvim/nplug')
 endif
 
+if has("mac")
+    let g:python3_host_prog = '/usr/local/opt/python@3.8/bin/python3'
+endif
+
+" snippets
 Plug 'honza/vim-snippets'
+" snippet plugin
 Plug 'SirVer/ultisnips'
 
+" Similar to helm for emacs
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" deoplete source for /usr/share/dict
 Plug 'deoplete-plugins/deoplete-dictionary'
+" deoplete source for ctags
 Plug 'deoplete-plugins/deoplete-tag'
 
+" swap text objects
 Plug 'machakann/vim-swap'
+
+" helper to use terminal
 Plug 'kassio/neoterm'
 
+" language protocol client
 if has("win32")
     Plug 'goal/LanguageClient-neovim', { 'branch': 'master', 'do': ':UpdateRemotePlugins' }
 else
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 endif
 
+" similar to gitgutter for emacs
 Plug 'mhinz/vim-signify'
 
+" format code
 Plug 'sbdchd/neoformat'
+" gen ctags/gtags
 Plug 'jsfaint/gen_tags.vim'
 
+" add/change/remove surround
 Plug 'tpope/vim-surround'
+" git
 Plug 'tpope/vim-fugitive'
+" add/remove comment
 Plug 'tpope/vim-commentary'
+" clojure REPL
 Plug 'tpope/vim-fireplace'
 
+" easymotion quick jump
 Plug 'easymotion/vim-easymotion'
 
+" colorscheme
 Plug 'iCyMind/NeoSolarized'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'agude/vim-eldar'
@@ -50,6 +73,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'gruvbox-community/gruvbox'
 Plug 'chriskempson/base16-vim'
 
+" status line
 Plug 'itchyny/lightline.vim'
 
 " Archlinux vimfiles
@@ -60,14 +84,19 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 
+" parathesis colorize
 Plug 'luochen1990/rainbow'
 
+" extra denite source
 Plug 'neoclide/denite-extra'
 
+" work plugins
 Plug 'goal/neovim_wdebug', { 'do': ':UpdateRemotePlugins' }
+" denite source for gtags
 Plug 'goal/denite-gtags'
 
-" Plug 'git@gitlab.rd.175game.com:qn/qtz-pastec-vim.git'
+" restructedText
+Plug 'gu-fan/riv.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -98,6 +127,7 @@ set completeopt-=preview
 set completeopt+=noinsert
 
 let g:deoplete#enable_at_startup = 1
+setlocal dictionary+=/usr/share/dict/words
 setlocal dictionary+=/usr/share/dict/american-english
 " Remove this if you'd like to use fuzzy search
 call deoplete#custom#source('dictionary', 'matchers', ['matcher_head'])
@@ -169,7 +199,6 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#option('_', {'split': 'floating', 'auto_resize': v:true})
 " call denite#custom#option('_', {'split': 'floating', 'wincol': 17, 'winwidth': 102, 'auto_resize': v:true})
 
 nnoremap <C-p> :<C-u>Denite -start-filter file/rec<CR>
