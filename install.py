@@ -2,7 +2,6 @@
 #encoding=utf8
 
 import os
-import sys
 import docopt
 from loguru import logger
 
@@ -27,9 +26,16 @@ VIM_PLUG_GIT_REPO_URL = "https://github.com/junegunn/vim-plug"
 VIM_PLUG_PATH = os.path.expanduser("~/.local/share/nvim/site/autoload/plug.vim")
 CURL_FETCH_CMD = "curl -fLo {} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim".format(
     VIM_PLUG_PATH)
-GIT_CLONE_CMD = "git clone {} ~/R/vim-plug".format(VIM_PLUG_GIT_REPO_URL)
-TMUX_CONF_PATH = os.path.expanduser("~/.tmux_conf")
+TMUX_CONF_PATH = os.path.expanduser("~/.tmux.conf")
 INSTALL_CMD = "install -D {} {}".format("~/R/vim-plug/plug.vim", VIM_PLUG_PATH)
+FISH_CONFIG_PATH = os.path.expanduser("~/.config/fish")
+FISH_CONFIG_REPO_URL = "https://github.com/goal/fish_config"
+
+
+class Git(object):
+    @staticmethod
+    def clone(url, target_dir):
+        return run_cmd("git clone {} {}".format(url, target_dir))
 
 
 def try_curl_rawfile():
@@ -37,7 +43,7 @@ def try_curl_rawfile():
 
 
 def try_copy_from_git_repo():
-    retcode = run_cmd(GIT_CLONE_CMD)
+    retcode = Git.clone(VIM_PLUG_GIT_REPO_URL, "~/R/vim-plug")
     if not retcode:
         retcode = run_cmd(INSTALL_CMD)
     return retcode
@@ -70,10 +76,27 @@ def install_tmux_config():
 
     src = os.path.abspath("./.tmux.conf")
     dst = TMUX_CONF_PATH
-    os.link(src, dst)
+    os.symlink(src, dst)
 
     logger.info("install tmux config success.")
 
+def install_fish_config():
+    if os.path.isdir(FISH_CONFIG_PATH):
+        logger.info("{} already exists", FISH_CONFIG_PATH)
+        return
+
+    target_dir = os.path.expanduser("~/R/fish_config")
+    if not os.path.isdir(target_dir):
+        retcode = Git.clone(FISH_CONFIG_REPO_URL, target_dir)
+        if not retcode:
+            logger.error("git clone fish_config failed.")
+            return
+
+    src = target_dir
+    dst = FISH_CONFIG_PATH
+    os.symlink(src, dst)
+
+    logger.info("install fish config success.")
 
 def main():
     opt = docopt.docopt(__doc__, version=__ver__)
@@ -82,6 +105,9 @@ def main():
         install_vim_config()
     if opt["tmux"] or install_all:
         install_tmux_config()
+    if opt["fish"] or install_all:
+        install_fish_config()
+
 
     return 0
 
