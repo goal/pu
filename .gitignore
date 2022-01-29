@@ -10,3 +10,5 @@
 !.clang-format
 !init.vim
 !install.py
+!xonsh
+!xonsh/rc.py
