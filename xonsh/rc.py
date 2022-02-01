@@ -29,8 +29,24 @@ def last_errcode():
             return f"{return_code}"
 
 env["PROMPT_FIELDS"]["last_errcode"] = last_errcode
+
+def prompt_jobs():
+    import re, io
+    iobuff = io.StringIO()
+    func_jobs = XSH.aliases["jobs"]
+    func_jobs([], stdout=iobuff)
+    # [{num}]{pos} {status}: {cmd}{bg} ({pid})
+    p = re.compile(r"\[(?P<num>.*)\](?P<pos>.*) (?P<status>.*): (?P<cmd>[^ &]+)(?P<bg>.*) \((?P<pid>.*)\)")
+    jobs = []
+    for line in iobuff.getvalue().splitlines():
+        m = p.match(line)
+        jobs.append("{}:{}:{}".format(m.group("num"), m.group("cmd"), m.group("pid")))
+    return "[{}]".format(",".join(jobs)) if jobs else ""
+
+env["PROMPT_FIELDS"]["prompt_jobs"] = prompt_jobs
+
 env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} "
-env["RIGHT_PROMPT"] = "{current_job} {#604461}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
+env["RIGHT_PROMPT"] = "{BLUE}{prompt_jobs} {#604462}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
 
 # git
 XSH.aliases["gd"] = ["git", "diff"]
