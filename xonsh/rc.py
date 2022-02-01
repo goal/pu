@@ -45,7 +45,7 @@ def prompt_jobs():
 
 env["PROMPT_FIELDS"]["prompt_jobs"] = prompt_jobs
 
-env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} "
+env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {BOLD_PURPLE}{prompt_end}{RESET} "
 env["RIGHT_PROMPT"] = "{BLUE}{prompt_jobs} {#604462}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
 
 # git
