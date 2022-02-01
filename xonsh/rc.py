@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+from xontrib import vox
+from xontrib import zoxide
+
 from xonsh.built_ins import XSH
 
 env = XSH.env
@@ -26,7 +29,7 @@ def last_errcode():
             return f"{return_code}"
 
 env["PROMPT_FIELDS"]["last_errcode"] = last_errcode
-env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {prompt_end} "
+env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} "
 env["RIGHT_PROMPT"] = "{current_job} {#604461}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
 
 # git
