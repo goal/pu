@@ -45,7 +45,27 @@ def prompt_jobs():
 
 env["PROMPT_FIELDS"]["prompt_jobs"] = prompt_jobs
 
-env["PROMPT"] = "{BLUE}{hostname} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {BOLD_PURPLE}{prompt_end}{RESET} "
+def prompt_kitty_windows():
+    import json
+    import subprocess
+    try:
+        json_data = subprocess.check_output(["kitty", "@", "ls"], timeout=1)
+    except Exception:
+        return ""
+
+    data = json.loads(json_data)
+    for os_window_data in data:
+        tabs = os_window_data["tabs"]
+        for tab in tabs:
+            for i, w in enumerate(tab["windows"]):
+                if w["is_self"]:
+                    return " {#01a7e1}%s/%s{RESET}" % (i + 1, len(tab["windows"]))
+
+    return ""
+
+env["PROMPT_FIELDS"]["prompt_kitty_windows"] = prompt_kitty_windows
+
+env["PROMPT"] = "{BLUE}{hostname}{prompt_kitty_windows} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {BOLD_PURPLE}{prompt_end}{RESET} "
 env["RIGHT_PROMPT"] = "{BLUE}{prompt_jobs} {#604462}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
 
 # git
@@ -63,4 +83,3 @@ XSH.aliases["vv"] = ["nvim"]
 # tmux
 XSH.aliases["tat"] = ["tmux", "attach", "-t"]
 XSH.aliases["tns"] = ["tmux", "new-session", "-s"]
-
