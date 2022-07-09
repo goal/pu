@@ -65,7 +65,7 @@ def prompt_kitty_windows():
 
 env["PROMPT_FIELDS"]["prompt_kitty_windows"] = prompt_kitty_windows
 
-env["PROMPT"] = "{BLUE}{hostname}{prompt_kitty_windows} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {BOLD_PURPLE}{prompt_end}{RESET} "
+env["PROMPT"] = "{env_name}{BLUE}{hostname}{prompt_kitty_windows} {GREEN}{short_cwd}{RESET}{gitstatus: ({})}{RESET} {BOLD_PURPLE}{prompt_end}{RESET} "
 env["RIGHT_PROMPT"] = "{BLUE}{prompt_jobs} {#604462}{localtime}{RESET}{last_errcode: {{RED}}{}{{RESET}}}"
 
 # git
@@ -83,3 +83,12 @@ XSH.aliases["vv"] = ["nvim"]
 # tmux
 XSH.aliases["tat"] = ["tmux", "attach", "-t"]
 XSH.aliases["tns"] = ["tmux", "new-session", "-s"]
+
+# k8s
+XSH.aliases["k"] = ["kubectl"]
+XSH.aliases["kd"] = ["kubectl", "describe"]
+XSH.aliases["kdn"] = ["kubectl", "describe", "node"]
+XSH.aliases["kdp"] = ["kubectl", "describe", "pod"]
+
+# nerdctl
+XSH.aliases["nd"] = ["nerdctl"]
