@@ -81,6 +81,9 @@ Plug 'luochen1990/rainbow'
 " restructedText
 Plug 'gu-fan/riv.vim'
 
+" Marks
+Plug 'chentoast/marks.nvim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -123,6 +126,7 @@ call deoplete#custom#source('dictionary', 'min_pattern_length', 4)
 " trailing whitespace, and end-of-lines. VERY useful!
 set listchars=tab:»\ ,trail:-,extends:>,precedes:<,nbsp:+
 set list                " Show problematic characters.
+let mapleader=","
 
 let g:ultisnips_python_style = 'google'
 
@@ -134,7 +138,6 @@ nnoremap <M-4> :4winc w<CR>
 " neoformat
 nnoremap <C-x>o :Neoformat<CR>
 vnoremap <C-x>o :Neoformat<CR>
-nnoremap <leader>m :AutoMark<CR>
 
 " delete
 nnoremap <leader>d "_d
@@ -147,3 +150,10 @@ vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+" Empty value to disable preview window altogether
+let g:fzf_preview_window = []
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>m :Marks<CR>
+nnoremap <leader>s :Buffers<CR>
+nnoremap <leader>/ :Rg 
