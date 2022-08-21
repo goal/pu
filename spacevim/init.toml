@@ -1,0 +1,67 @@
+# All SpaceVim option below [option] section
+[options]
+    atomic_update = false
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = "material"
+    colorscheme_bg = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "nil"
+    statusline_iseparator = "bar"
+    buffer_index_type = 4
+    windows_index_type = 3
+    enable_tabline_filetype_icon = false
+    enable_statusline_mode = false
+    statusline_unicode = true
+    # Enable vim compatible mode, avoid changing origin vim key bindings
+    vimcompatible = true
+    default_indent = 4
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after  = "myspacevim#after"
+    autocomplete_method = "deoplete"
+    snippet_engine = "ultisnips"
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto_completion_return_key_behavior = "nil"
+auto_completion_tab_key_behavior = "smart"
+
+[[layers]]
+name = 'shell'
+default_position = 'top'
+default_height = 30
+
+[[layers]]
+name = 'lsp'
+filetypes = [
+  "c",
+  "cpp",
+  "python"
+]
+enabled_clients = ['clangd', 'pylsp']
+
+[[layers]]
+name = "format"
+
+[[layers]]
+name = "colorscheme"
+
+[[layers]]
+name = "fzf"
+
+[[layers]]
+name = "leaderf"
+
+[[layers]]
+name = 'lang#c'
+enable_clang_syntax_highlight = true
+
+[[layers]]
+name = "lang#python"
+enabled_linters = ['python', 'pylint']

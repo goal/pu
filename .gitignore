@@ -13,3 +13,6 @@
 !xonsh
 !xonsh/rc.py
 !etserver
+!spacevim
+!spacevim/myspacevim.vim
+!spacevim/init.toml
