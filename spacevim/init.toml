@@ -17,7 +17,7 @@
     windows_index_type = 3
     enable_tabline_filetype_icon = false
     enable_statusline_mode = false
-    statusline_unicode = true
+    statusline_unicode = false
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
     default_indent = 4
@@ -45,6 +45,8 @@ filetypes = [
   "python"
 ]
 enabled_clients = ['clangd', 'pylsp']
+  [layers.override_cmd]
+  python = ["pylsp"]
 
 [[layers]]
 name = "format"
