@@ -3,5 +3,5 @@ function! myspacevim#before() abort
 endfunction
 
 function! myspacevim#after() abort
-	set listchars=tab:»\ ,trail:-,extends:>,precedes:<,nbsp:+
+    let g:airline_symbols.linenr = ''
 endfunction

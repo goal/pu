@@ -4,14 +4,14 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer
-    colorscheme = "material"
+    colorscheme = "PaperColor"
     colorscheme_bg = "dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
     enable_guicolors = true
     # Disable statusline separator, if you want to use other value, please
     # install nerd fonts
-    statusline_separator = "nil"
+    statusline_separator = "arrow"
     statusline_iseparator = "bar"
     buffer_index_type = 4
     windows_index_type = 3
@@ -25,6 +25,7 @@
     bootstrap_after  = "myspacevim#after"
     autocomplete_method = "deoplete"
     snippet_engine = "ultisnips"
+    wrap_line = true
 
 # Enable autocomplete layer
 [[layers]]
@@ -55,6 +56,10 @@ name = "format"
 name = "colorscheme"
 
 [[layers]]
+name = 'core#statusline'
+enable = false
+
+[[layers]]
 name = "fzf"
 
 [[layers]]
@@ -67,3 +72,6 @@ enable_clang_syntax_highlight = true
 [[layers]]
 name = "lang#python"
 enabled_linters = ['python', 'pylint']
+
+[[custom_plugins]]
+repo = "NLKNguyen/papercolor-theme"
