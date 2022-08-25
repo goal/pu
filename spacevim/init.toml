@@ -70,6 +70,13 @@ name = "fzf"
 name = "leaderf"
 
 [[layers]]
+name = "tools"
+
+[[layers]]
+name = "git"
+git_plugin = 'fugitive'
+
+[[layers]]
 name = 'lang#c'
 enable_clang_syntax_highlight = true
 
