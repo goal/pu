@@ -26,10 +26,14 @@
     autocomplete_method = "deoplete"
     snippet_engine = "ultisnips"
     wrap_line = true
+    lint_engine = "ale"
 
 [[layers]]
 name = 'ui'
-indentline_char = '|'
+indentline_char = '│'
+
+[[layers]]
+name = 'checkers'
 
 # Enable autocomplete layer
 [[layers]]
@@ -83,6 +87,9 @@ enable_clang_syntax_highlight = true
 [[layers]]
 name = "lang#python"
 enabled_linters = ['python', 'pylint']
+
+[[layers]]
+name = "lang#rst"
 
 [[custom_plugins]]
 repo = "NLKNguyen/papercolor-theme"
