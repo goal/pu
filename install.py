@@ -23,7 +23,8 @@ Options:
 """
 
 VIM_PLUG_GIT_REPO_URL = "https://github.com/junegunn/vim-plug"
-VIM_PLUG_PATH = os.path.expanduser("~/.local/share/nvim/site/autoload/plug.vim")
+VIM_PLUG_PATH = os.path.expanduser(
+    "~/.local/share/nvim/site/autoload/plug.vim")
 CURL_FETCH_CMD = "curl -fLo {} --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim".format(
     VIM_PLUG_PATH)
 TMUX_CONF_PATH = os.path.expanduser("~/.tmux.conf")
@@ -33,6 +34,7 @@ FISH_CONFIG_REPO_URL = "https://github.com/goal/fish_config"
 
 
 class Git(object):
+
     @staticmethod
     def clone(url, target_dir):
         return run_cmd("git clone {} {}".format(url, target_dir))
@@ -80,6 +82,7 @@ def install_tmux_config():
 
     logger.info("install tmux config success.")
 
+
 def install_fish_config():
     if os.path.isdir(FISH_CONFIG_PATH):
         logger.info("{} already exists", FISH_CONFIG_PATH)
@@ -98,6 +101,7 @@ def install_fish_config():
 
     logger.info("install fish config success.")
 
+
 def main():
     opt = docopt.docopt(__doc__, version=__ver__)
     install_all = opt["all"]
@@ -108,8 +112,8 @@ def main():
     if opt["fish"] or install_all:
         install_fish_config()
 
-
     return 0
+
 
 if __name__ == "__main__":
     main()

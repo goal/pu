@@ -93,3 +93,4 @@ name = "lang#rst"
 
 [[custom_plugins]]
 repo = "NLKNguyen/papercolor-theme"
+merged = false
